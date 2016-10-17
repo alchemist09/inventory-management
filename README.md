@@ -1,10 +1,12 @@
 # bc-X-inventory
 ## Inventory Management
-This app should be able to keep inventory of Andela’s assets, mainly electronics e.g. laptop, projector, cables, etc.
+This app should be able to keep inventory of Andela’s assets, mainly electronics e.g. **laptop, projector, cables, **etc.
 The admins for this app, are staff members in the Ops and Facilities Department and the rest are staff members (and fellows).
+
 1.As a super-admin, I should be to sign-in and add other admins
 2.As an admin, I should be able to sign-in
 3.As an admin, I should be able to add an asset record, with the following details:
+
 ..*Asset Name
 ..*Description
 ..*Serial Number
