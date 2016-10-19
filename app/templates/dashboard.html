@@ -3,11 +3,33 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block page_content %}
-    <h1>Welcome to TIA Inventory Tracker Dashboard</h1>
-    <p>You are logged in as <b>{{ current_user.username }}</b>.</p>
-    <div class="side-nav">
-        <ul>
-            <a href="{{ url_for('main.create_user') }}">Create User</a>
-        </ul>
+    <div class="row">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning col-md-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+    </div>
+    
+    <div class="col-md-3">
+    <div class="panel">
+        <div class="panel-heading panel-primary">
+            <h3>Navigate App</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_admin') }}">Create Admin</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_user') }}">Create User</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-9">
+        <h1>Welcome to TIA Asset Tracker Dashboard</h1>
+        <p>Login username: {{ current_user.username }}</p>
     </div>
 {% endblock %}
