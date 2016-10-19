@@ -27,19 +27,5 @@ Clone this repo in a virtual environment in your machine the install required de
 
   > pip install -r requirements.txt
 
-### Dependencies
-The application is making use of the following Flask dependencies.
-
-1. Flask==0.10.1
-2. Flask-SQLAlchemy==1.0
-3. Flask-WTF==0.10.0
-4. Jinja2==2.7.3
-5. Flask-Login==0.3.2
-6. Flask-Bootstrap==3.1.1.2 
-7. MarkupSafe==0.23
-8. SQLAlchemy==0.9.7
-9. WTForms==2.0.1
-10. Werkzeug==0.9.6
-11. coverage==3.7.1
-12. gunicorn==19.0.0
-13. itsdangerous==0.24
+### Running Application
+Start the application by running the run.py file from the terminal
