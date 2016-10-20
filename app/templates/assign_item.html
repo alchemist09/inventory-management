@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning col-md-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+    </div>
+    
+    <div class="col-md-3">
+    <div class="panel">
+        <div class="panel-heading panel-primary">
+            <h3>Navigate App</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_admin') }}">Create Admin</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_user') }}">Create User</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.users') }}">Users</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_asset') }}">Create Asset</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.assets') }}">Assets</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-4">
+        <h1>Assign Item to User</h1>
+
+        <form action="" method="post">
+        <table class="table">
+        <tr>
+            <input type="hidden" name=user_id value="{{ user_id }}" />
+        </tr>
+        <tr>
+            <td><label for="item_name">Item</label></td>
+            <td>
+                <select name="tia_item">
+                    <option value="">Select Item</option>
+                {% for item in items %}
+                    <option value="{{ item.id }}">{{ item.name }} - {{ item.serial_no }}</option>
+                {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="date_assigned">Date Assigned</label></td>
+            <td><input type="text" name="date_assigned" width="400" /></td>
+        </tr>
+        <tr>
+            <td><label for="expiry">Expiry Date</label></td>
+            <td><input type="text" name="expiry" width="400" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input type="submit" name="submit" value="Submit" />
+            </td>
+        </tr>
+        </table>
+        </form>
+
+    </div>
+{% endblock %}
