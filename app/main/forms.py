@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextField, DateField
+from wtforms import StringField, PasswordField, BooleanField, SelectField, SubmitField, TextField, DateField
 from wtforms.validators import Required, Length
 
 
@@ -30,3 +30,6 @@ class AssetCreationForm(Form):
     bought = DateField('Date Bought', validators=[Required()])
     cost = StringField('Cost(Ksh)', validators=[Required()])
     submit = SubmitField('Submit')
+
+
+
