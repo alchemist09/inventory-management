@@ -1,13 +1,14 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, lm
 from flask_login import UserMixin
+from datetime import date
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), index=True)
-    email = db.Column(db.String(20), index=True, unique=True)
+    email = db.Column(db.String(40), index=True, unique=True)
     username = db.Column(db.String(20), index=True, unique=True)
     password_hash = db.Column(db.String(64))
     is_admin = db.Column(db.Boolean, default=False)
@@ -24,14 +25,57 @@ class User(UserMixin, db.Model):
         """
             Create a user entry into the database
         """
-        user = User(name=name, email=email, username=username, is_admin=False)
+        user = User(name=name, email=email, username=username, is_admin=is_admin)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
 
+
     def __repr__(self):
         return '<User({0}, {1})>'.format(self.name, self.username)
 
+    @staticmethod
+    def find_all():
+        users = User.query.all()[1:]
+        return users
+
+
+class Asset(db.Model):
+    __tablename__ = 'assets'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=True)
+    name = db.Column(db.String(30), index=True)
+    description = db.Column(db.String(250), index=True)
+    serial_no = db.Column(db.String(150), index=True, unique=True)
+    andela_code = db.Column(db.String(150), index=True)
+    bought = db.Column(db.DateTime)
+    cost = db.Column(db.Integer)
+    assigned = db.Column(db.Boolean, default=False)
+    date_assigned = db.Column(db.DateTime, nullable=True)
+    reclaim_date = db.Column(db.DateTime, nullable=True)
+    date_reclaimed = db.Column(db.DateTime, nullable=True)
+
+
+    def __repr__(self):
+        return '<Asset({0}, {1})>'.format(self.name, self.serial_no)
+
+    @staticmethod
+    def create_asset(name, description, serial_no, andela_code, bought, cost):
+        """
+            Create new asset record in assets table
+        """
+        asset = Asset(name=name, description=description, serial_no=serial_no, andela_code=andela_code, bought=bought, cost=cost)
+        db.session.add(asset)
+        db.session.commit()
+
+    @staticmethod
+    def find_all():
+        """
+            Find all assets
+        """
+        assets = Asset.query.all()
+        return assets
+        
 
 @lm.user_loader
 def load_user(id):
