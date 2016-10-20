@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}TIA Asset Tracker{% endblock %}
+
+{% block page_content %}
+    
+
+    <div class="row">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning col-md-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+    </div>
+
+    <div class="col-md-3">
+    <div class="panel">
+        <div class="panel-heading panel-primary">
+            <h3 class="panel-title">Navigate App</h3>
+        </div>
+        <div class="panel-body">
+            <ul list-group>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_user') }}">Create User</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.users') }}">View Users</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.create_asset') }}">Create Asset</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <h1>Users</h1>
+        </div>
+    </div>
+    <!--<div class="row"> -->
+        <div class="col-md-9">
+            <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Serial No.</th>
+                    <th>Andela Code</th>
+                    <th>Description</th>
+                    <th>Assigned</th>
+                    <th>Date Assigned</th>
+                    <th>Expiry</th>
+                    <th>Date Reclaimed</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for asset in assets %}
+            <tr>
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.serial_no }}</td>
+                <td>{{ asset.andela_code }}</td>
+                <td>{{ asset.description }}</td>
+                <td>{{ asset.assigned }}</td>
+                <td>{{ asset.date_assigned }}</td>
+                <td>{{ asset.reclaim_date }}</td>
+                <td>{{ asset.date_reclaimed }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    <!-- </div> -->
+{% endblock %}
