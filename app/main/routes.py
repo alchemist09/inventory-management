@@ -4,6 +4,7 @@ from ..models import User, Asset
 from . import main
 from .forms import LoginForm, UserCreationForm, AssetCreationForm
 from functools import wraps
+from datetime import date
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -82,7 +83,7 @@ def create_admin():
         is_admin = form.is_admin.data
         User.create_user(name, email, username, password, is_admin)
         flash("User created")
-        return redirect(request.args.get('next') or url_for('main.dashboard'))
+        return redirect(request.args.get('next') or url_for('main.users'))
     return render_template('create_admin.html', form=form)
 
 
@@ -141,7 +142,25 @@ def create_asset():
     return render_template('create_asset.html', form=form)
 
 
+@check_is_admin
+@login_required
 @main.route('/assets')
 def assets():
     assets = Asset.find_all()
     return render_template('assets.html', assets=assets)
+
+
+@login_required
+@check_is_admin
+@main.route('/assign_item/<user_id>', methods=['GET', 'POST'])
+def assign_item(user_id):
+    items = Asset.find_unassigned_items()
+    if request.method == 'POST' and 'tia_item' in request.form:
+        which_user = request.form['user_id']
+        item_id = request.form['tia_item']
+        start_date = request.form['date_assigned']
+        end_date = request.form['expiry']
+        Asset.assign_item(which_user, item_id, start_date, end_date)
+        flash("Item assigned to user")
+        redirect(url_for('main.assets'))
+    return render_template('assign_item.html', items=items, user_id=user_id)
