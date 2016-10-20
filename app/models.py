@@ -51,9 +51,9 @@ class Asset(db.Model):
     bought = db.Column(db.DateTime)
     cost = db.Column(db.Integer)
     assigned = db.Column(db.Boolean, default=False)
-    date_assigned = db.Column(db.DateTime, nullable=True)
-    reclaim_date = db.Column(db.DateTime, nullable=True)
-    date_reclaimed = db.Column(db.DateTime, nullable=True)
+    date_assigned = db.Column(db.String(30))
+    reclaim_date = db.Column(db.String(30))
+    date_reclaimed = db.Column(db.String(30))
 
 
     def __repr__(self):
@@ -75,7 +75,28 @@ class Asset(db.Model):
         """
         assets = Asset.query.all()
         return assets
+
+
+    @staticmethod
+    def find_unassigned_items():
+        """
+            Find all items that have not been assigned
+            to any user
+        """
+        assets = Asset.query.filter_by(assigned=False).all()
+        return assets
         
+
+    @staticmethod
+    def assign_item(user_id, item_id, start_date, end_date):
+        asset = Asset.query.filter_by(id=item_id).first()
+        asset.assigned = True
+        asset.date_assigned = start_date
+        asset.end_date = end_date
+        asset.user_id = user_id
+        db.session.add(asset)
+        db.session.commit()
+
 
 @lm.user_loader
 def load_user(id):
