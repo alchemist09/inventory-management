@@ -92,7 +92,7 @@ class Asset(db.Model):
         asset = Asset.query.filter_by(id=item_id).first()
         asset.assigned = True
         asset.date_assigned = start_date
-        asset.end_date = end_date
+        asset.reclaim_date = end_date
         asset.user_id = user_id
         db.session.add(asset)
         db.session.commit()
