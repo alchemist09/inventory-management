@@ -28,4 +28,4 @@ Clone this repo in a virtual environment in your machine the install required de
   > pip install -r requirements.txt
 
 ### Running Application
-Start the application by running the run.py file from the terminal.
+Start the application by running the run.py file from the terminal. Go to idnex paeg and login using credentials:- username:admin, password:lpi02H6q6F
