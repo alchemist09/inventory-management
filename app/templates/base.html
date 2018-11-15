@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}TIA Asset Tracker{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                TIA Asset Tracker
+            </a>
+            {% if current_user.is_authenticated %}
+                <a  class="navbar-brand" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.logout') }}">Logout</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block page_content %}{% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+venv
+"*".sublime-project
+"*".sublime-workspace
+"*".pyc
+# SQLite databases
+*.sqlite*
+sandbox
+__pycache__/
