@@ -7,5 +7,5 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         if User.query.filter_by(username='admin').first() is None:
-            User.create_user('Luke', 'mugapedia@gmail.com', 'admin', 'lpi02H6q6F', True)
+            User.create_user('Luke', 'mugapedia@gmail.com', 'admin', 'admin', True)
     app.run()
