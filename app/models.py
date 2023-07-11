@@ -36,8 +36,7 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def find_all():
-        users = User.query.all()[1:]
-        return users
+        return User.query.all()[1:]
 
 
 class Asset(db.Model):
@@ -73,8 +72,7 @@ class Asset(db.Model):
         """
             Find all assets
         """
-        assets = Asset.query.all()
-        return assets
+        return Asset.query.all()
 
 
     @staticmethod
@@ -83,8 +81,7 @@ class Asset(db.Model):
             Find all items that have not been assigned
             to any user
         """
-        assets = Asset.query.filter_by(assigned=False).all()
-        return assets
+        return Asset.query.filter_by(assigned=False).all()
         
 
     @staticmethod
